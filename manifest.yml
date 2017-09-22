@@ -1,0 +1,7 @@
+---
+applications:
+- path: target/meetings-1.0-SNAPSHOT.war
+  memory: 1024M
+  instances: 1
+  name: your-appname-here
+  host: your-appname-here
