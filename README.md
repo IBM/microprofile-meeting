@@ -8,10 +8,14 @@ The purpose of this lab is to go over using MicroProfile 1.0, so it will just co
 Adapted from the blog post: [Writing a simple MicroProfile application](https://developer.ibm.com/wasdev/docs/writing-simple-microprofile-application/)
 
 ## Prerequisites
- * [Eclipse](http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/mars2)
- * WebSphere Developer Tools (WDT)
-   * To install WDT, download and start Eclipse, then drag and drop [Install WDT](http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1778478) to your running Eclipse workspace to install WebSphere Developer Tools on to the toolbar to start the WDT installer.
+ * [Eclipse Java EE IDE for Web Developers](http://www.eclipse.org/downloads/)
+ * IBM Websphere Application Liberty Developer Tools (WDT)
+   1. Start Eclipse
+   2. Launch the Eclipse Marketplace: **Help** -> **Eclipse Marketplace**
+   3. Search for **IBM Websphere Application Liberty Developer Tools**, and click **Install** with the defaults configuration selected
  * [Git](https://git-scm.com/downloads)
+ * [Bluemix Account](bluemix.net)
+ * [Bluemix CLI](https://clis.ng.bluemix.net/ui/home.html)
 
 ## Steps
 
@@ -324,15 +328,64 @@ You can check that you’ve copied the code correctly by comparing the classes a
 In Eclipse, you might see some warnings, which you can ignore. For example, the HTML problems are because Eclipse doesn’t understand the AngularJS tags which are used to define the application’s UI.
 
 ### Step 5. Running the application
+#### Eclipse WDT
 There are two ways to get the application running from within WDT:
 
  * The first is to use Maven to build and run the project:
  1. Run the Maven `install` goal to build and test the project: Right-click **pom.xml** in the `meetings` project, click **Run As… > Maven Build…**, then in the **Goals** field type `install` and click **Run**. The first time you run this goal, it might take a few minutes to download the Liberty dependencies.
- 2. Run a Maven build for the `liberty:start-server goal`: Right-click **pom.xml**, click **Run As… > Maven Build**, then in the **Goals** field, type `liberty:start-server` and click **Run**. This starts the server in the background.
+ 2. Run a Maven build for the `liberty:start-server goal`: Right-click **pom.xml**, click **Run As… > Maven Build...**, then in the **Goals** field, type `liberty:start-server` and click **Run**. This starts the server in the background.
  3. Open the application, which is available at `http://localhost:9080/meetings/`.
  4. To stop the server again, run the `liberty:stop-server` build goal.
 
  * The second way is to right-click the `meetings` project and select **Run As… > Run on Server** but there are a few things to note if you do this. WDT doesn’t automatically add the MicroProfile features as you would expect so you need to manually add those. Also, any changes to the configuration in `src/main/liberty/config` won’t be picked up unless you add an include.
+
+#### Bluemix
+Run the application in Bluemix:
+
+ 1. Make sure to build the application using maven
+ ```
+ $    mvn clean install
+ ```
+ 
+ 2. To deploy to Bluemix using command line, it can be helpful to set up a manifest.yml file. The manifest.yml includes basic information about your app, such as the name, the location of your app, how much memory to allocate for each instance, and how many instances to create on startup. This is also where you'll choose your URL. [Learn more...](https://console.bluemix.net/docs/manageapps/depapps.html#appmanifest)
+
+ * The manifest.yml is provided in the sample.
+
+  ```
+  applications:
+  - path: target/meetings-1.0-SNAPSHOT.war
+    memory: 1024M
+    instances: 1
+    name: your-appname-here
+    host: your-appname-here
+  ```
+
+ * Change both the *name* and *host* to a single unique name of your choice. Note that the *host* value will be used in your public url, for example, http://your-appname-here.mybluemix.net. If you already created an app from the Bluemix UI but haven't pushed your code to it, you can use the same name value. Make sure the path points to the built application, for this example the location is `target/meetings-1.0-SNAPSHOT.war.war`.
+
+ 3. Choose your API endpoint
+   ```
+   cf api <API-endpoint>
+   ```
+
+ * Replace the *API-endpoint* in the command with an API endpoint from the following list.
+   * https://api.ng.bluemix.net # US South
+   * https://api.eu-de.bluemix.net # Germany
+   * https://api.eu-gb.bluemix.net # United Kingdom
+   * https://api.au-syd.bluemix.net # Sydney
+
+ 4. Login to your Bluemix account
+  ```
+  cf login
+  ```
+
+ 5. Push your application to Bluemix.
+  ```
+  cf push
+  ```
+
+ * This can take a few minutes. If there is an error in the deployment process you can use the command `cf logs <Your-App-Name> --recent` to troubleshoot.
+
+ 6. Open the application, which is available at `http://<Your-App-Name.mybluemix.net>/meetings/`
 
 Find out more about [MicroProfile and WebSphere Liberty](https://developer.ibm.com/wasdev/docs/microprofile/).
 
