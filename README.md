@@ -21,17 +21,15 @@ Adapted from the blog post: [Writing a simple MicroProfile application](https://
   Run the following commands:
   
   ```
-  $    git clone https://github.com/WASdev/sample.microprofile.meetingapp.git
-  $    cd sample.microprofile.meetingapp
-  $    git checkout start
+  $    git clone https://github.com/IBM/microprofile-meeting.git
   ```
 
   #### In Eclipse, import the project as an existing project.
   1. In Eclipse, switch to the Git perspective.
   2. Click **Clone a Git repository** from the Git Repositories view.
-  3. Enter URI `https://github.com/WASdev/sample.microprofile.meetingapp.git`
+  3. Enter URI `https://github.com/IBM/microprofile-meeting.git`
   4. Click **Next**, then click **Next** again accepting the defaults.
-  5. From the **Initial branch** drop-down list, click **start**.
+  5. From the **Initial branch** drop-down list, click **master**.
   6. Select **Import all existing Eclipse projects after clone finishes**, then click **Finish**.
   7. Switch to the Java EE perspective.
   8. The meetings project is automatically created in the Project Explorer view.
