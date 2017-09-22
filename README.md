@@ -1,4 +1,4 @@
-# Part 1: Microprofile Meeting Application
+# Part 1: MicroProfile Meeting Application
 
 ## Overview
 This sample application solves a real problem that the Liberty development team had. The globally-distributed Liberty development team has a lot of online meetings using IBM Connections Cloud Meetings. IBM Connections Cloud provides meeting rooms to individual employees, which is a problem for team meetings if the person who initially set up the meeting room can’t make it (e.g. they were called into another meeting, are on vacation, or sick). The sample application provides a single URL for a meeting, which can then be ‘started’ by one person and everyone else gets redirected.
