@@ -337,4 +337,4 @@ There are two ways to get the application running from within WDT:
 Find out more about [MicroProfile and WebSphere Liberty](https://developer.ibm.com/wasdev/docs/microprofile/).
 
 ## Next Steps
-Part 2: [MicroProfile Application - Adding Persistance](https://github.com/IBM/microprofile-meeting-persistance)
+Part 2: [MicroProfile Meeting Application - Adding Persistance](https://github.com/IBM/microprofile-meeting-persistance)
