@@ -21,11 +21,11 @@
  below or put a server.xml file in configDropins/overrides. Note: you may need to add Maven provided
  dependencies for use at compile time if not using app accelerator dependencies. -->
 
-    <!-- 
+
     <featureManager>
-        <feature></feature>
+        <feature>microProfile-1.0</feature>
     </featureManager>
-     -->
+
 
     <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
         id="defaultHttpEndpoint" />
