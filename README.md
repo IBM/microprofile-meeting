@@ -9,10 +9,10 @@ Adapted from the blog post: [Writing a simple MicroProfile application](https://
 
 ## Prerequisites
  * [Eclipse Java EE IDE for Web Developers](http://www.eclipse.org/downloads/)
- * IBM Websphere Application Liberty Developer Tools (WDT)
+ * IBM Liberty Developer Tools (WDT)
    1. Start Eclipse
    2. Launch the Eclipse Marketplace: **Help** -> **Eclipse Marketplace**
-   3. Search for **IBM Websphere Application Liberty Developer Tools**, and click **Install** with the defaults configuration selected
+   3. Search for **IBM Liberty Developer Tools**, and click **Install** with the defaults configuration selected
  * [Git](https://git-scm.com/downloads)
 
 ## Steps
@@ -337,6 +337,21 @@ There are two ways to get the application running from within WDT:
  * The second way is to right-click the `meetings` project and select **Run As… > Run on Server** but there are a few things to note if you do this. WDT doesn’t automatically add the MicroProfile features as you would expect so you need to manually add those. Also, any changes to the configuration in `src/main/liberty/config` won’t be picked up unless you add an include.
 
 Find out more about [MicroProfile and WebSphere Liberty](https://developer.ibm.com/wasdev/docs/microprofile/).
+
+#### Bluemix
+You can run your application on Bluemix using Cloud Foundry.
+
+ 1. Login to your Bluemix account
+  ```
+  cf login
+  ```
+ 
+ 2. Push your application to Bluemix
+ ```
+ $ cf push <yourappname> -p wlp/usr/servers/meetingsServer
+ ```
+ 
+Once your app has finished deploying, click the assigned route/url and make sure to add `/meetings` to the end to hit the home page your application.
 
 ## Next Steps
 Part 2: [MicroProfile Meeting Application - Adding Persistence](https://github.com/IBM/microprofile-meeting-persistence)
