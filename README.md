@@ -1,4 +1,4 @@
-# Part 1: MicroProfile Meeting Application
+# Part 1: MicroProfile Meeting Application on Open Liberty
 
 ## Overview
 This sample application solves a real problem that the Liberty development team had. The globally-distributed Liberty development team has a lot of online meetings using IBM Connections Cloud Meetings. IBM Connections Cloud provides meeting rooms to individual employees, which is a problem for team meetings if the person who initially set up the meeting room can’t make it (e.g. they were called into another meeting, are on vacation, or sick). The sample application provides a single URL for a meeting, which can then be ‘started’ by one person and everyone else gets redirected.
@@ -8,7 +8,7 @@ The purpose of this lab is to go over using MicroProfile 1.0, so it will just co
 Adapted from the blog post: [Writing a simple MicroProfile application](https://developer.ibm.com/wasdev/docs/writing-simple-microprofile-application/)
 
 ## Prerequisites
- * [Eclipse Java EE IDE for Web Developers](http://www.eclipse.org/downloads/)
+ * [Eclipse IDE for Web Developers](http://www.eclipse.org/downloads/): Run the installer and select Eclipse IDE for Java EE developers. **Note:** these steps were tested on the 2018-09 version of Eclipse running on Linux and Liberty Developer Tools 18.0.0.3.  **Note:** If you encounter an error message like  `Could not initialize class org.codehaus.plexus.archiver.jar.JarArchiver` please see the Troubleshooting section.
  * IBM Liberty Developer Tools (WDT)
    1. Start Eclipse
    2. Launch the Eclipse Marketplace: **Help** -> **Eclipse Marketplace**
@@ -161,6 +161,7 @@ The second part of this example is the JAX-RS service endpoint. This makes a RES
 Eclipse brings up the `MeetingService` class in the Java editor. Most Java EE beans are automatically considered CDI-managed beans by default, but not JAX-RS beans. JAX-RS beans need to be annotated with a CDI scope to become CDI-managed. In this case we want the normal JAX-RS behaviour of a bean instance per request but we need it to be CDI managed. This can be done using the CDI request scope:
 
 1. Above the class type definition add `@RequestScoped`, which is in the package `javax.enterprise.context`:
+
 ```java
 import javax.enterprise.context.RequestScoped;
 @RequestScoped
@@ -310,6 +311,7 @@ The last step is to tell JAX-RS that this module should be treated as a JAX-RS a
 When the class opens in the editor, add an annotation to tell the JAX-RS annotation where to dispatch requests to REST endpoints from:
 
 1. Before the class definition add the `@ApplicationPath` annotation with a value of `"/rest/"`:
+
 ```java
 import javax.ws.rs.ApplicationPath;
  
@@ -320,8 +322,6 @@ import javax.ws.rs.ApplicationPath;
 
 The application is done and you are ready to run it.
 
-You can check that you’ve copied the code correctly by comparing the classes against the code in GitHub on the Master branch of the repository.
-
 In Eclipse, you might see some warnings, which you can ignore. For example, the HTML problems are because Eclipse doesn’t understand the AngularJS tags which are used to define the application’s UI.
 
 ### Step 5. Running the application
@@ -329,29 +329,47 @@ In Eclipse, you might see some warnings, which you can ignore. For example, the 
 There are two ways to get the application running from within WDT:
 
  * The first is to use Maven to build and run the project:
- 1. Run the Maven `install` goal to build and test the project: Right-click **pom.xml** in the `meetings` project, click **Run As… > Maven Build…**, then in the **Goals** field type `install` and click **Run**. The first time you run this goal, it might take a few minutes to download the Liberty dependencies.
- 2. Run a Maven build for the `liberty:start-server goal`: Right-click **pom.xml**, click **Run As… > Maven Build...**, then in the **Goals** field, type `liberty:start-server` and click **Run**. This starts the server in the background.
+ 1. Run the Maven `install` goal to build and test the project: Right-click **pom.xml** in the `meetings` project, click **Run As… > Maven Build…**, then in the **Goals** field type `install` and click **Run**. The first time you run this goal, it might take a few minutes to download the Liberty dependencies.  If you have the appropriate packages installed, you can also run `mvn install` from the command line.  
+ 2. Run a Maven build for the `liberty:start-server goal`: Right-click **pom.xml**, click **Run As… > Maven Build...**, then in the **Goals** field, type `liberty:start-server` and click **Run**. This starts the server in the background. Alternatively, run `mvn liberty:start-server`.  You can verify the check that the server is running by seeing the Java process on port 9080.
+ 
+```
+$ netstat -pant | grep 9080
+tcp6       0      0 127.0.0.1:9080          :::*                    LISTEN      7140/java     
+```
  3. Open the application, which is available at `http://localhost:9080/meetings/`.
- 4. To stop the server again, run the `liberty:stop-server` build goal.
+ 4. To stop the server again, run the `liberty:stop-server` build goal. (Or `mvn liberty:stop-server`).
 
  * The second way is to right-click the `meetings` project and select **Run As… > Run on Server** but there are a few things to note if you do this. WDT doesn’t automatically add the MicroProfile features as you would expect so you need to manually add those. Also, any changes to the configuration in `src/main/liberty/config` won’t be picked up unless you add an include.
 
-Find out more about [MicroProfile and WebSphere Liberty](https://developer.ibm.com/wasdev/docs/microprofile/).
+Find out more about [MicroProfile and Open Liberty](https://openliberty.io/docs/intro/microprofile.html).
 
-#### Bluemix
+#### IBM Cloud
 You can run your application on Bluemix using Cloud Foundry.
 
- 1. Login to your Bluemix account
+ 1. Login to your IBM cloud account
   ```
-  cf login
+  ibmcloud cf login
   ```
  
- 2. Push your application to Bluemix
+ 2. Push your application to CloudFoundary
  ```
- $ cf push <yourappname> -p wlp/usr/servers/meetingsServer
+ $ ibmcloud cf push <yourappname> -p wlp/usr/servers/meetingsServer
  ```
  
 Once your app has finished deploying, click the assigned route/url and make sure to add `/meetings` to the end to hit the home page your application.
 
 ## Next Steps
 Part 2: [MicroProfile Meeting Application - Adding Persistence](https://github.com/IBM/microprofile-meeting-persistence)
+
+### Troubleshooting
+
+If Eclipse pops up this error message: `Could not initialize class org.codehaus.plexus.archiver.jar.JarArchiver` try this resolution step:
+
+Remove these two directories from your Maven repository:
+
+```
+~/.m2/repository/org/codehaus/plexus/plexus-archiver
+~/.m2/repository/org/apache/maven/maven-archiver 
+```
+
+and run `mvn install` in the project diretory to re-populate those with the current version. 
