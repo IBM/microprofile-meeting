@@ -67,7 +67,7 @@
             </activation>
 
             <build>
-                <plugins>
+              <plugins>
                     <plugin>
                         <groupId>net.wasdev.wlp.maven.plugins</groupId>
                         <artifactId>liberty-maven-plugin</artifactId>
@@ -210,11 +210,12 @@
                 <configuration>
                     <serverName>${wlpServerName}</serverName>
                     <assemblyArtifact>
-                        <groupId>com.ibm.websphere.appserver.runtime</groupId>
-                        <artifactId>wlp-webProfile7</artifactId>
-                        <version>17.0.0.1</version>
+                        <groupId>io.openliberty</groupId>
+                        <artifactId>openliberty-runtime</artifactId>
+                        <version>RELEASE</version>
                         <type>zip</type>
                     </assemblyArtifact>
+		    
                     <assemblyInstallDirectory>${project.build.directory}</assemblyInstallDirectory>
                     <configFile>src/main/liberty/config/server.xml</configFile>
                     <packageFile>${package.file}</packageFile>
@@ -241,6 +242,7 @@
                     </execution>
                 </executions>
             </plugin>
+	    
             <!-- Plugin to run functional tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
