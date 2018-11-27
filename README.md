@@ -14,6 +14,7 @@ Adapted from the blog post: [Writing a simple MicroProfile application](https://
    2. Launch the Eclipse Marketplace: **Help** -> **Eclipse Marketplace**
    3. Search for **IBM Liberty Developer Tools**, and click **Install** with the defaults configuration selected
  * [Git](https://git-scm.com/downloads)
+ * Install the [IBM Cloud CLI](https://console.bluemix.net/docs/cli/index.html#overview)
 
 ## Steps
 ### Step 1. Check out the source code
