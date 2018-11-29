@@ -42,6 +42,8 @@ The first part of this application is a CDI-managed bean that manages the meetin
 1. Create a new class: right-click the `meetings` project, then click **New > Class…**
 2. Name the class `MeetingManager`, then click **Finish**.
 
+**Note:**  All the new classes are created under the same package as MeetingsUtil.java.
+
 Eclipse brings up the `MeetingManager` class in the Java editor. The first thing to do is make it a managed bean.
 
 1. Above the class type definition add `@ApplicationScoped`, which is in the package `javax.enterprise.context`:
