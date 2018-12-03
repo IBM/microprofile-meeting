@@ -131,6 +131,19 @@ public static JsonObjectBuilder createJsonFrom(JsonObject user, String ... ignor
     return builder;
 }
 ```
+As an example, a JSON object used in this class would have values that represent a user created meeting called "AfternoonMeeting" that's one hour long:
+
+
+```
+{
+  "id" : "01",
+  "title" : "AfternoonMeeting",
+  "duration" : "60",
+  "meetingURL" : "AfternoonMeeting",
+  "id" : "01"
+}
+```
+
 
 5. This method introduces two new types: a `JsonValue` and a `JsonObjectBuilder`. A `JsonValue` is the superclass of all the Json types. A `JsonObjectBuilder` is used to create a `JsonObject`. The code also uses the standard Java Collections API. Add the following imports:
 
