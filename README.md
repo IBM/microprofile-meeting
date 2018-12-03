@@ -360,14 +360,14 @@ tcp6       0      0 127.0.0.1:9080          :::*                    LISTEN      
 Find out more about [MicroProfile and Open Liberty](https://openliberty.io/docs/intro/microprofile.html).
 
 #### IBM Cloud
-You can run your application on Bluemix using Cloud Foundry.
+You can run your application on IBM Cloud using Cloud Foundry.
 
  1. Login to your IBM cloud account
   ```
   ibmcloud cf login
   ```
  
- 2. Push your application to CloudFoundary
+ 2. Push your application to CloudFoundry
  ```
  $ ibmcloud cf push <yourappname> -p wlp/usr/servers/meetingsServer
  ```
