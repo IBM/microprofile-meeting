@@ -331,7 +331,9 @@ When the class opens in the editor, add an annotation to tell the JAX-RS annotat
 ```java
 import javax.ws.rs.ApplicationPath;
  
-@ApplicationPath("/rest/")
+@ApplicationPath("/rest")
+public class MeetingApplication extends Application{	
+}
 ```
 
 2. Save the file.
